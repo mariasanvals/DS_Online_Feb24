@@ -22,6 +22,7 @@ plt.xlabel('Total de la Factura')
 plt.ylabel('Frecuencia')
 plt.show()
 
+
 # Boxplot de la propina por día
 plt.figure(figsize=(10, 6))
 sns.boxplot(x='day', y='tip', data=tips)
@@ -38,8 +39,9 @@ plt.xlabel('Total de la Factura')
 plt.ylabel('Propina')
 plt.show()
 
+print(tips.head(50))
 # Heatmap de la correlación entre variables numéricas
 plt.figure(figsize=(10, 6))
-sns.heatmap(tips.corr(), annot=True, cmap='coolwarm', center=0)
+sns.heatmap(tips.drop(['smoker','sex','day','time'],axis=1).corr(), annot=True, cmap='coolwarm', center=0)
 plt.title('Heatmap de la Correlación entre Variables')
 plt.show()
