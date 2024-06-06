@@ -3,6 +3,7 @@ import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
 # Cargar el dataset 'tips' de Seaborn
 tips = sns.load_dataset('tips')
 
