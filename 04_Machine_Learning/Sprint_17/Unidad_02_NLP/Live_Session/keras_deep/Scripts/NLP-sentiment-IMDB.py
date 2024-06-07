@@ -25,10 +25,17 @@ vectorizer = TfidfVectorizer(stop_words='english', max_df=0.7)
 X_train_vec = vectorizer.fit_transform(X_train)
 X_test_vec = vectorizer.transform(X_test)
 
+print('The sentiment data for training is organized in a matrix.')
 print('Num. reviews (rows): ',X_train_vec.shape[0])
 print('Num. tokens: (columns)',X_train_vec.shape[1])
+print()
+##################################################################
+#
+# ¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡RELEER y  REESCRIBIR !!!!!!!!!!!!!!!!
+# 
+#################################################################
 X_train_vec_row = X_train_vec.toarray()[1900,:]
-print(f'The shape of the container of critics in the processed mathematical form of a matrix is {X_train_vec.shape[0]},{X_train_vec.shape[1]}')
+print(f'The shape of the container of critics in the processed mathematical form of a matrix is ({X_train_vec.shape[0]},{X_train_vec.shape[1]})')
 print(f'The shape of the container of sentiments that correspond to each movie is {y_train.shape}')
 print(f'And the type of cells in the critics matrix is {X_train_vec.dtype} (frequencies) and in the sentiments list is {y_train.dtype} (negative/positive).')
 print()
@@ -38,9 +45,10 @@ print('Instead, there are: ', len(vectorizer.get_feature_names_out()),' tokens. 
 print()
 print('For example, some of the name of the tokens in this algorithm are: ', vectorizer.get_feature_names_out()[1900:1920])
 print()
-print(f'If we take a look more closely, for example to review 1900, we can see that it has {len(X_train_vec_row[X_train_vec_row!=0])} cells to say if that token or word is activated in this particular review. All reviews have the same token names, the same words filled mostly with zeros, and they also have the same number of tokens in the same order. What changes is the row-vector, different reviews (row-vecotrs) have different choice of tokens (row-column). We can grasp the amount of the sparsity of the tokens in these critics with the following thought: there is one zero for each word that is not present in the token/word list, in this particular case there are {len(X_train_vec_row[X_train_vec_row!=0])} possibilities of the presence of that particular word (almost a cell for each word in the whole dictionary). But ocassionally, when the word is present in the review, the cell activates for the word that corresponds to the token, the cell then depicts some frequency, and maybe there are other cells with non-zeros, far away. This way the algorithm learns. Each activated token is a lonely number surrounded almost by a full dictionary of zeros, exactly by {len(vectorizer.get_feature_names_out())} of them.')
-print(f'For review 1900, the sum of the tokens that are not zero is {len(X_train_vec_row[X_train_vec_row!=0])}, which means that, in that row-vector, there is a maximum of that amount of cells with non-zero tokens/words.')
-print('For review 1900, the non-zero words/tokens would be',vectorizer.get_feature_names_out()[X_train_vec_row!=0])
+print(f'If we take a look more closely, for example to review 1900, we can see that it has {len(X_train_vec_row[X_train_vec_row!=0])} cells activated to construct a token list for this particular review. All reviews have the same token names, the same words filled mostly with zeros, and they also have the same number of tokens in the same order. What changes is the content of the row-vector, different reviews (row-vecotrs) have different activation of tokens (cells). We can grasp the amount of the sparsity of the tokens in these critics with the following thought: there is one zero for each word that is not present in the token/word list, in this particular case there are {len(X_train_vec_row[X_train_vec_row!=0])} activated tokens (or non-zero cells) that correspond to the presence of that particular critic (almost a cell for each word in the whole dictionary). But ocassionally, when the word is present in the review, the cell activates for the word that corresponds to the token, the cell then depicts some frequency, and maybe there are other cells with non-zeros, far away. This way the algorithm learns. Each activated token is a lonely number surrounded almost by a full dictionary of zeros, exactly by {len(vectorizer.get_feature_names_out())} of them.')
+print(f'For review 1900, the total number of tokens that are not zero is {len(X_train_vec_row[X_train_vec_row!=0])}.')
+print('For review 1900, the activated words/tokens are:')
+print(vectorizer.get_feature_names_out()[X_train_vec_row!=0])
 print(f'The sentiment that corresponds to review 1900 is {y_train.iloc[1900]}.')
 print()
 print('And that is what we use to teach the Natural Language Processing Model. By itself, it learns to associate different sentiments to reviews, represented or decomposed reviews by lists of words/tokens with some frequency, but usually zero. And we do this for many reviews/sentiments.')
@@ -76,8 +84,8 @@ print('The following depicts the ability, the goodness, to tell the correct sent
 predictions = model.predict(X_test_vec)
 print("Accuracy:", accuracy_score(y_test, predictions))
 print()
-print('The Classification Report')
-print()
+#print('The Classification Report')
+#print()
 print("Classification Report:\n", classification_report(y_test, predictions))
 print()
 confusion_m = confusion_matrix(y_test,predictions)

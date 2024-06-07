@@ -17,6 +17,7 @@ with open('vectorizer.pkl', 'rb') as file:
 new_review = ["I really enjoyed this movie, it was fantastic!"]
 new_review = ["I think this moview is overrated"]
 new_review = ["I am not sure what to say about this movie. It did not move me but I enjoyed the ending."]
+new_review = ["I am not sure."]
 
 
 new_review_vec = loaded_vectorizer.transform(new_review)
